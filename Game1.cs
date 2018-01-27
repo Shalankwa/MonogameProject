@@ -18,14 +18,19 @@ namespace Game1
         private BaseObject player;
         private InputManager manageInput;
 
-        public Game1()
+		public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            
-            this.graphics.PreferredBackBufferHeight = 240;
-            this.graphics.PreferredBackBufferWidth = 320;
-            player = new BaseObject();
+			Resolution.Init(ref graphics);
+			Content.RootDirectory = "Content";
+
+			//this.graphics.PreferredBackBufferHeight = 240;
+			//this.graphics.PreferredBackBufferWidth = 320;
+
+			Resolution.SetVirtualResolution(320, 270);
+			Resolution.SetResolution(320, 270, false);
+
+			player = new BaseObject();
             manageInput = new InputManager();
         }
 
@@ -37,9 +42,10 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+			// TODO: Add your initialization logic here
+			//Window.AllowUserResizing = true;
 
-            base.Initialize();
+			base.Initialize();
         }
 
         /// <summary>
@@ -51,8 +57,9 @@ namespace Game1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player.AddComponent(new Sprite(Content.Load<Texture2D>("character1"), 15, 21, new Vector2(50, 50)));
+            player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16, 16, new Vector2(50, 50)));
             player.AddComponent(new PlayerInput());
+			player.AddComponent(new Animation(16, 16));
 
             // TODO: use this.Content to load your game content here
         }
@@ -93,14 +100,14 @@ namespace Game1
         {
             GraphicsDevice.Clear(Color.LightGoldenrodYellow);
 
-            spriteBatch.Begin();
+			spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Resolution.getTransformationMatrix());
 
-            player.Draw(spriteBatch);
+			player.Draw(spriteBatch);
 
             //Debug.WriteLine("Testing Debug");
 
             spriteBatch.End();
-
+			
             base.Draw(gameTime);
         }
     }

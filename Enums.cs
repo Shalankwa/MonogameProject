@@ -1,7 +1,8 @@
 ﻿public enum ComponentType
 {
     Sprite,
-    PlayerInput
+    PlayerInput,
+    Animation
 }
 
 public enum Input
@@ -11,4 +12,18 @@ public enum Input
     Up,
     Down,
     None
+}
+
+public enum Direction
+{
+    Left,
+    Right,
+    Up,
+    Down
+}
+
+public enum State
+{
+    Standing,
+    Walking
 }

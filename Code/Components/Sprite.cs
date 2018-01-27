@@ -35,13 +35,41 @@ namespace Game1.Code.Components
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+			var ani = GetComponent<Animation>(ComponentType.Animation);
+			if(ani != null)
+			{
+				spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, Color.White);
+			}
+			else
+			{
+				spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+			}
+
         }
 
         public void Move(float x, float y)
         {
             //Update pos based on movement
             pos = new Vector2(pos.X + x, pos.Y + y);
-        }
+
+			var ani = GetComponent<Animation>(ComponentType.Animation);
+			if (ani == null) return;
+
+			if (x > 0)
+			{
+				ani.ResetCounter(State.Walking, Direction.Right);
+			}
+			else if(x < 0) {
+				ani.ResetCounter(State.Walking, Direction.Left);
+			}
+			else if(y > 0)
+			{
+				ani.ResetCounter(State.Walking, Direction.Down);
+			}else if (y < 0)
+			{
+				ani.ResetCounter(State.Walking, Direction.Up);
+			}
+
+		}
     }
 }
