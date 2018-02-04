@@ -8,19 +8,20 @@ using System.Diagnostics;
 
 namespace Game1
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
-    public class Game1 : Game
-    {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        private BaseObject player;
-        private InputManager manageInput;
+	/// <summary>
+	/// This is the main type for your game.
+	/// </summary>
+	public class Game1 : Game
+	{
+		GraphicsDeviceManager graphics;
+		SpriteBatch spriteBatch;
+		private BaseObject player;
+		private InputManager manageInput;
+		private MapManager manageMap;
 
 		public Game1()
-        {
-            graphics = new GraphicsDeviceManager(this);
+		{
+			graphics = new GraphicsDeviceManager(this);
 			Resolution.Init(ref graphics);
 			Content.RootDirectory = "Content";
 
@@ -28,87 +29,95 @@ namespace Game1
 			//this.graphics.PreferredBackBufferWidth = 320;
 
 			Resolution.SetVirtualResolution(320, 270);
-			Resolution.SetResolution(320, 270, false);
+			Resolution.SetResolution(1080, 720, false);
 
 			player = new BaseObject();
-            manageInput = new InputManager();
-        }
+			manageInput = new InputManager();
+			manageMap = new MapManager("Map1");
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
-        {
+		}
+
+		/// <summary>
+		/// Allows the game to perform any initialization it needs to before starting to run.
+		/// This is where it can query for any required services and load any non-graphic
+		/// related content.  Calling base.Initialize will enumerate through any components
+		/// and initialize them as well.
+		/// </summary>
+		protected override void Initialize()
+		{
 			// TODO: Add your initialization logic here
 			//Window.AllowUserResizing = true;
 
 			base.Initialize();
-        }
+		}
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
+		protected override void LoadContent()
+		{
+			// Create a new SpriteBatch, which can be used to draw textures.
+			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16, 16, new Vector2(50, 50)));
-            player.AddComponent(new PlayerInput());
+			player.AddComponent(new Sprite(Content.Load<Texture2D>("link2"), 16, 16, new Vector2(50, 50)));
+			player.AddComponent(new PlayerInput());
 			player.AddComponent(new Animation(16, 16));
+			manageMap.LoadContent(Content);
 
-            // TODO: use this.Content to load your game content here
-        }
+			// TODO: use this.Content to load your game content here
+		}
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
+		/// <summary>
+		/// UnloadContent will be called once per game and is the place to unload
+		/// game-specific content.
+		/// </summary>
+		protected override void UnloadContent()
+		{
+			// TODO: Unload any non ContentManager content here
+		}
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+		/// <summary>
+		/// Allows the game to run logic such as updating the world,
+		/// checking for collisions, gathering input, and playing audio.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Update(GameTime gameTime)
+		{
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+				Exit();
 
-            // TODO: Add your update logic here
+			// TODO: Add your update logic here
 
-            manageInput.Update(gameTime.ElapsedGameTime.Milliseconds);
-            player.Update(gameTime.ElapsedGameTime.Milliseconds);
-            
+			manageInput.Update(gameTime.ElapsedGameTime.Milliseconds);
+			player.Update(gameTime.ElapsedGameTime.Milliseconds);
+			manageMap.Update(gameTime.ElapsedGameTime.Milliseconds);
 
-            base.Update(gameTime);
-        }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.LightGoldenrodYellow);
+			base.Update(gameTime);
+		}
+
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Draw(GameTime gameTime)
+		{
+			GraphicsDevice.Clear(Color.LightGoldenrodYellow);
 
 			spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Resolution.getTransformationMatrix());
 
+
 			player.Draw(spriteBatch);
+			manageMap.Draw(spriteBatch);
 
-            //Debug.WriteLine("Testing Debug");
 
-            spriteBatch.End();
-			
-            base.Draw(gameTime);
-        }
-    }
+
+			//Debug.WriteLine("Testing Debug");
+
+			spriteBatch.End();
+
+			base.Draw(gameTime);
+		}
+	}
 }
