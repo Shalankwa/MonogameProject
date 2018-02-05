@@ -69,16 +69,16 @@ namespace Game1.Code.Components
 			switch (currDirection)
 			{
 				case Direction.Up:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight + 1, aWidth, aHeight);
 					break;
 				case Direction.Down:
 					TextureRectangle = new Rectangle(aWidth * animationIndex, 0, aWidth, aHeight);
 					break;
 				case Direction.Left:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 2, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 2 + 2, aWidth, aHeight);
 					break;
 				case Direction.Right:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 3, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 3 + 3, aWidth, aHeight);
 					break;
 			}
 

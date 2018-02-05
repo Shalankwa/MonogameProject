@@ -27,6 +27,10 @@ namespace Game1.Code.Managers
 			_tiles = new List<Tile>();
 			TileMapLoader.LoadTileMap<Tile>(_mapName, out _tiles);
 
+			foreach(var tile in _tiles)
+			{
+				tile.LoadContent(content);
+			}
 
 		}
 

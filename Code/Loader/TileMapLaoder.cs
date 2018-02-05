@@ -18,21 +18,27 @@ namespace Game1.Code.Loader
 
 			tiles = new List<Tile>();
 
-			XDocument xDox = XDocument.Load(string.Format("Conectent/{0}.tmx", mapName));
+			XDocument xDox = XDocument.Load(string.Format("Content/{0}.tmx", mapName));
 
 			int mapWidth = int.Parse(xDox.Root.Attribute("width").Value);
 			int mapHeight = int.Parse(xDox.Root.Attribute("height").Value);
-			int layers = int.Parse(xDox.Root.Attribute("Layers").Value);
-			int tileSize = int.Parse(xDox.Root.Attribute("tileWidth").Value);
+			int columns = int.Parse(xDox.Root.Element("tileset").Attribute("columns").Value);
 
-			string TileIDs = xDox.Root.Element("Layer1").Element("data").Value;
-			string[] sTileIDS = TileIDs.Split(',');
-
-
-			for (int n = 0; n < sTileIDS.Length; n++)
+			//For each layer to the map
+			foreach(XElement elm in xDox.Descendants("layer"))
 			{
-				Tile t = new Tile(n % mapWidth, n / mapHeight, 0, int.Parse(sTileIDS[n]) % tileSize, int.Parse(sTileIDS[n]) / tileSize, "dungeon_Sheet.png");
-				tiles.Add(t);
+				Debug.Print(elm.ToString());
+				string TileIDs =elm.Element("data").Value;
+				string[] sTileIDS = TileIDs.Split(',');
+
+				for (int n = 0; n < sTileIDS.Length; n++)
+				{
+					int tileID = int.Parse(sTileIDS[n]);
+					if (tileID == 0) continue;
+					Tile t = new Tile(n % mapWidth, n / mapHeight, 0, tileID % columns - 1, tileID / columns, "dungeon_sheet");
+					tiles.Add(t);
+				}
+
 			}
 
 			return false;
