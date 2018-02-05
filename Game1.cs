@@ -18,18 +18,21 @@ namespace Game1
 		private BaseObject player;
 		private InputManager manageInput;
 		private MapManager manageMap;
+		int Xres = 1080;
+		int Yres = 720;
+
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
-			Resolution.Init(ref graphics);
+			//Resolution.Init(ref graphics);
 			Content.RootDirectory = "Content";
 
-			//this.graphics.PreferredBackBufferHeight = 240;
-			//this.graphics.PreferredBackBufferWidth = 320;
+			this.graphics.PreferredBackBufferWidth = Xres;
+			this.graphics.PreferredBackBufferHeight = Yres;
 
-			Resolution.SetVirtualResolution(320, 270);
-			Resolution.SetResolution(1080, 720, false);
+			//Resolution.SetVirtualResolution(320, 270);
+			//Resolution.SetResolution(320 * 2, 270 * 2, false);
 
 			player = new BaseObject();
 			manageInput = new InputManager();
@@ -103,19 +106,26 @@ namespace Game1
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.LightGoldenrodYellow);
+			GraphicsDevice.Clear(Color.Black);
 
-			spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Resolution.getTransformationMatrix());
+			//spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Resolution.getTransformationMatrix());
 
+			SpriteBatch targetBatch = new SpriteBatch(GraphicsDevice);
+			RenderTarget2D target = new RenderTarget2D(GraphicsDevice, 320, 240);
+			GraphicsDevice.SetRenderTarget(target);
 
-			player.Draw(spriteBatch);
+			spriteBatch.Begin();
 			manageMap.Draw(spriteBatch);
-
-
-
-			//Debug.WriteLine("Testing Debug");
-
+			player.Draw(spriteBatch);
 			spriteBatch.End();
+
+			//set rendering back to the back buffer
+			GraphicsDevice.SetRenderTarget(null);
+
+			//render target to back buffer
+			targetBatch.Begin();
+			targetBatch.Draw(target, new Rectangle(0, 0, Xres, Yres), Color.White);
+			targetBatch.End();
 
 			base.Draw(gameTime);
 		}
