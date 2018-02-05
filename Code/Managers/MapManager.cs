@@ -19,12 +19,13 @@ namespace Game1.Code.Managers
 
 		public MapManager(string mapName)
 		{
+			_tiles = new List<Tile>();
 			_mapName = mapName;
 		}
 
 		public void LoadContent(ContentManager content)
 		{
-			_tiles = new List<Tile>();
+
 			TileMapLoader.LoadTileMap<Tile>(_mapName, out _tiles);
 
 			foreach(var tile in _tiles)

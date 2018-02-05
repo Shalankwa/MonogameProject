@@ -21,6 +21,12 @@ namespace Game1.Code.Map
 
 		public int TextureXPos { get; set; }
 		public int TextureYPos { get; set; }
+
+		List<TileFrame> tileFrames;
+		public int animationSpeed { get; set; }
+		private double _frameCounter = 0;
+		private int _animationIndex = 0;
+
 		private Texture2D texture;
 		public string textureName;
 
@@ -34,8 +40,19 @@ namespace Game1.Code.Map
 			xPos = XPos;
 			yPos = YPos;
 			zPos = ZPos;
-			TextureXPos = TXPos;
-			TextureYPos = TYPos;
+			tileFrames = new List<TileFrame>(1);
+			tileFrames.Add(new TileFrame(TXPos, TYPos));
+			textureName = Tname;
+		}
+
+		public Tile(int XPos, int YPos, int ZPos, List<TileFrame> frames, int aniS, string Tname)
+		{
+
+			xPos = XPos;
+			yPos = YPos;
+			zPos = ZPos;
+			tileFrames = frames;
+			animationSpeed = aniS;
 			textureName = Tname;
 		}
 
@@ -46,13 +63,23 @@ namespace Game1.Code.Map
 
 		public void Update(double gameTime)
 		{
+			if (tileFrames.Count <= 1) return;
 
+			_frameCounter += gameTime;
+			if(_frameCounter >= animationSpeed)
+			{
+				_frameCounter = 0;
+				_animationIndex++;
+				if (_animationIndex >= tileFrames.Count) 
+					_animationIndex = 0;
+			}
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
 			sb.Draw(texture, new Rectangle(xPos * width, yPos * height, width, height),
-				new Rectangle(TextureXPos * width, TextureYPos * height, width, height), Color.White);
+				new Rectangle(tileFrames[_animationIndex].TextureXPos * width, tileFrames[_animationIndex].TextureYPos * height,
+				width, height), Color.White);
 		}
 	}
 }

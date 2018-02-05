@@ -4,7 +4,7 @@
   <property name="Layers" type="int" value="2"/>
   <property name="TileSheet" value="dungeon_sheet"/>
  </properties>
- <tileset firstgid="1" name="Dungeon" tilewidth="16" tileheight="16" tilecount="240" columns="24">
+ <tileset firstgid="1" name="dungeon_sheet" tilewidth="16" tileheight="16" tilecount="240" columns="24">
   <image source="Artwork/dungeon_sheet.png" width="384" height="160"/>
  </tileset>
  <layer name="Layer1" width="10" height="10">
@@ -24,12 +24,12 @@
  <layer name="Layer2" width="10" height="10">
   <data encoding="csv">
 6,7,7,7,7,7,7,7,7,8,
-30,31,31,31,31,31,31,31,31,32,
-29,0,0,0,0,0,0,0,0,56,
+30,31,129,31,31,173,31,149,31,32,
+54,0,0,0,0,0,0,0,0,56,
+29,0,0,155,0,0,0,0,0,56,
 82,0,0,0,0,0,0,0,0,56,
-0,0,0,0,0,0,0,0,0,56,
-0,0,0,0,0,0,0,0,0,56,
-0,0,0,0,0,0,0,0,0,56,
+0,162,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,185,0,56,
 0,0,0,0,0,0,0,0,0,56,
 0,0,0,0,0,0,0,0,0,56,
 0,0,0,0,0,0,0,0,0,56
