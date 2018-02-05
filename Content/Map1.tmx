@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+ <properties>
+  <property name="Layers" type="int" value="2"/>
+  <property name="TileSheet" value="dungeon_sheet"/>
+ </properties>
+ <tileset firstgid="1" name="Dungeon" tilewidth="16" tileheight="16" tilecount="240" columns="24">
+  <image source="Artwork/dungeon_sheet.png" width="384" height="160"/>
+ </tileset>
+ <layer name="Layer1" width="10" height="10">
+  <data encoding="csv">
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55,
+55,55,55,55,55,55,55,55,55,55
+</data>
+ </layer>
+ <layer name="Layer2" width="10" height="10">
+  <data encoding="csv">
+6,7,7,7,7,7,7,7,7,8,
+30,31,31,31,31,31,31,31,31,32,
+29,0,0,0,0,0,0,0,0,56,
+82,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56,
+0,0,0,0,0,0,0,0,0,56
+</data>
+ </layer>
+</map>
