@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Project2</ProductName>
     <PublisherName>Jonathan</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>0.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -78,15 +78,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\BaseObject.cs" />
+    <Compile Include="Code\Components\AIControllers\AIMovement.cs" />
+    <Compile Include="Code\Components\AnimationNPC.cs" />
     <Compile Include="Code\Components\Animation.cs" />
+    <Compile Include="Code\Components\Camera.cs" />
+    <Compile Include="Code\Components\Collision.cs" />
     <Compile Include="Code\Components\Component.cs" />
     <Compile Include="Code\Components\PlayerInput.cs" />
     <Compile Include="Code\Components\Sprite.cs" />
+    <Compile Include="Code\EventHandlers\CameraTransitionEvent.cs" />
     <Compile Include="Code\EventHandlers\NewInputEventArgs.cs" />
-    <Compile Include="Code\Loader\TileMapLaoder.cs" />
+    <Compile Include="Code\Loader\TileMapLoader.cs" />
+    <Compile Include="Code\Managers\CameraManager.cs" />
+    <Compile Include="Code\Managers\FunctionManager.cs" />
     <Compile Include="Code\Managers\InputManager.cs" />
     <Compile Include="Code\Managers\MapManager.cs" />
+    <Compile Include="Code\Map\Entities.cs" />
     <Compile Include="Code\Map\Tile.cs" />
+    <Compile Include="Code\Map\TileCollision.cs" />
+    <Compile Include="Code\Map\TileFrame.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -107,6 +117,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dungeon_sheet.png" />
     <Content Include="Content\link_full.png" />
     <Content Include="hourglass.ico" />
     <Content Include="Icon.ico" />
@@ -115,6 +126,12 @@
     <MonoGameContentReference Include="Content\Content.mgcb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </MonoGameContentReference>
+    <Content Include="Content\Maps\Map2_X4_Y4.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Maps\Map2_X3_Y4.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

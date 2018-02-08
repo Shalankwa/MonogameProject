@@ -1,5 +1,6 @@
 ﻿using Game1.Code;
 using Game1.Code.Components;
+using Game1.Code.Components.AIControllers;
 using Game1.Code.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,11 +17,12 @@ namespace Game1
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		private BaseObject player;
+		private BaseObject _FirstNPC;
 		private InputManager manageInput;
 		private MapManager manageMap;
-		int Xres = 1080;
-		int Yres = 720;
-
+		private CameraManager cameraManager;
+		Point virtualScreenSize = new Point(320, 240);
+		Point screenSize = new Point(1080, 720);
 
 		public Game1()
 		{
@@ -28,15 +30,18 @@ namespace Game1
 			//Resolution.Init(ref graphics);
 			Content.RootDirectory = "Content";
 
-			this.graphics.PreferredBackBufferWidth = Xres;
-			this.graphics.PreferredBackBufferHeight = Yres;
+			this.graphics.PreferredBackBufferWidth = screenSize.X;
+			this.graphics.PreferredBackBufferHeight = screenSize.Y;
 
 			//Resolution.SetVirtualResolution(320, 270);
 			//Resolution.SetResolution(320 * 2, 270 * 2, false);
 
 			player = new BaseObject();
+			_FirstNPC = new BaseObject();
 			manageInput = new InputManager();
-			manageMap = new MapManager("Map1");
+			cameraManager = new CameraManager(virtualScreenSize);
+			manageMap = new MapManager("Map2", cameraManager, Content);
+
 
 		}
 
@@ -62,11 +67,21 @@ namespace Game1
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+			manageMap.LoadContent(Content);
 
-			player.AddComponent(new Sprite(Content.Load<Texture2D>("link2"), 16, 16, new Vector2(50, 50)));
+			player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16, 16, new Vector2(50, 50)));
 			player.AddComponent(new PlayerInput());
 			player.AddComponent(new Animation(16, 16));
-			manageMap.LoadContent(Content);
+			player.AddComponent(new Collision(manageMap));
+			player.AddComponent(new Camera(cameraManager));
+
+			_FirstNPC.AddComponent(new Sprite(Content.Load<Texture2D>("F_04"), 16, 16, new Vector2(150, 150)));
+			_FirstNPC.AddComponent(new AIMovement(300));
+			_FirstNPC.AddComponent(new AnimationNPC(16, 16));
+			_FirstNPC.AddComponent(new Collision(manageMap));
+			_FirstNPC.AddComponent(new Camera(cameraManager));
+
+
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -91,10 +106,14 @@ namespace Game1
 				Exit();
 
 			// TODO: Add your update logic here
+			cameraManager.Update(gameTime.ElapsedGameTime.Milliseconds);
+			if (cameraManager.gameLocked) return;
 
 			manageInput.Update(gameTime.ElapsedGameTime.Milliseconds);
 			player.Update(gameTime.ElapsedGameTime.Milliseconds);
+			_FirstNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
 			manageMap.Update(gameTime.ElapsedGameTime.Milliseconds);
+			
 
 
 			base.Update(gameTime);
@@ -114,9 +133,10 @@ namespace Game1
 			RenderTarget2D target = new RenderTarget2D(GraphicsDevice, 320, 240);
 			GraphicsDevice.SetRenderTarget(target);
 
-			spriteBatch.Begin();
+			spriteBatch.Begin(sortMode:SpriteSortMode.FrontToBack);
 			manageMap.Draw(spriteBatch);
 			player.Draw(spriteBatch);
+			_FirstNPC.Draw(spriteBatch);
 			spriteBatch.End();
 
 			//set rendering back to the back buffer
@@ -124,10 +144,14 @@ namespace Game1
 
 			//render target to back buffer
 			targetBatch.Begin();
-			targetBatch.Draw(target, new Rectangle(0, 0, Xres, Yres), Color.White);
+			targetBatch.Draw(target, new Rectangle(0, 0, screenSize.X, screenSize.Y), Color.White);
 			targetBatch.End();
 
 			base.Draw(gameTime);
+
+			//STOP THE LEAK
+			target.Dispose();
+			targetBatch.Dispose();
 		}
 	}
 }

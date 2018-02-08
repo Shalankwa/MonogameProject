@@ -2,7 +2,11 @@
 {
     Sprite,
     PlayerInput,
-    Animation
+    Animation,
+	Collision,
+	AIMovement,
+	AnimationNPC,
+	Camera
 }
 
 public enum Input
@@ -19,7 +23,8 @@ public enum Direction
     Left,
     Right,
     Up,
-    Down
+    Down,
+	NULL
 }
 
 public enum State
