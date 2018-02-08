@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="33240">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="45016">
       <assemblyIdentity name="Game1" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PZ0JR6RVUL85eFOJ/FwdMEqSQSthnNPzr6MDdDt7+hg=</dsig:DigestValue>
+        <dsig:DigestValue>DkTHjdoGtoq07eQDy0vZ0yK/ZsjJUD55QfA35lYE8K4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -180,6 +180,15 @@
       <dsig:DigestValue>vWrvGFSHNu07biMM6ka51bxtwiB2pfVImPSRFqAr88I=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\F_04.xnb" size="13141">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>d9HV7jx7ikwoJsTRIzzppSXFPMcryaAMwnx5in+8h88=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\link_full.png" size="4679">
     <hash>
       <dsig:Transforms>
@@ -198,40 +207,22 @@
       <dsig:DigestValue>sFEdEkNKvdULqPi0FAr+LB6IcEsb1UuWn9mJMApVeLQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\link2.png" size="1021">
+  <file name="Content\Maps\Map2_X3_Y4.tmx" size="10272">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7xVCCg0TqUHT33jl3X+R0urUqGmHOeXEVjAjSVleg/c=</dsig:DigestValue>
+      <dsig:DigestValue>j7TeX8D32KYEKl0HAg1NDFdemizQY69QkaSifJWu0nw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\link2.xnb" size="9197">
+  <file name="Content\Maps\Map2_X4_Y4.tmx" size="10273">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mRSn+7Z0WuTCNPHVJ6jGATjJw1y/92y1U8aKLZVIFNs=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Content\Map1.tmx" size="1302">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>y85YiGUvbH8x4mt/pXtpna9ApHlay+bu15F16PzMXZE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Content\Map2_fin.tmx" size="2964">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>xP2ymGhMFJwWoUAhlRVaxfWJt/rEtAEQe1d3TKSTVG4=</dsig:DigestValue>
+      <dsig:DigestValue>pNBD+p//bWvHrUsSW89PruE8EJd3JePwdAvZhqSmhjA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="hourglass.ico" size="10366">
