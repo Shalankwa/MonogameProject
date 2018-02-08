@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game1.Code.EventHandlers;
 using Game1.Code.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1.Code.Components
@@ -30,22 +31,43 @@ namespace Game1.Code.Components
             var sprite = GetComponent<Sprite>(ComponentType.Sprite);
             if (sprite == null) return;
 
+			var collision = GetComponent<Collision>(ComponentType.Collision);
+
+			var x = 0f;
+			var y = 0f;
+
             switch (e.Input)
             {
                 case Input.Up:
-                    sprite.Move(0, -1.5f);
+					y = -1.5f;
                     break;
                 case Input.Down:
-                    sprite.Move(0, 1.5f);
-                    break;
+					y = 1.5f;
+					break;
                 case Input.Left:
-                    sprite.Move(-1.5f, 0);
-                    break;
+					x = -1.5f;
+					break;
                 case Input.Right:
-                    sprite.Move(1.5f, 0);
-                    break;
+					x = 1.5f;
+					break;
             }
-        }
+
+			if(collision != null && !collision.CheckCollision(
+				new Rectangle((int)(sprite.Position.X + x), (int)(sprite.Position.Y + y), sprite.width, sprite.height))){
+				sprite.Move(x, y);
+			}
+
+			var camera = GetComponent<Camera>(ComponentType.Camera);
+			if (camera == null)
+				return;
+
+			Vector2 position;
+
+			if (!camera.GetPosition(sprite.Position, out position))
+			{
+				camera.MoveCamera(camera.GetDirectionOutOfScreen(sprite.Position));
+			}
+		}
 
         public override void Draw(SpriteBatch spritebatch)
         {

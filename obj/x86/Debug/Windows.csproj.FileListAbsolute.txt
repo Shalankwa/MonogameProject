@@ -28,4 +28,7 @@ C:\Users\Jonathan\source\repos\Project2\MonogameProject\obj\x86\Debug\Game1.exe.
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\obj\x86\Debug\Game1.application
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\obj\x86\Debug\Game1.exe
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\obj\x86\Debug\Game1.pdb
-C:\Users\Jonathan\source\repos\Project2\MonogameProject\obj\x86\Debug\Windows.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\dungeon_sheet.xnb
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\F_04.xnb
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\Map2_X4_Y4.tmx
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\Map2_X3_Y4.tmx

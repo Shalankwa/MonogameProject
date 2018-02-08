@@ -15,9 +15,9 @@ namespace Game1.Code.Components
             get { return ComponentType.Animation; }
         }
 
-        private int aWidth;
-        private int aHeight;
-        public Rectangle TextureRectangle { get; private set; } 
+        protected int aWidth;
+        protected int aHeight;
+        public Rectangle TextureRectangle { get; protected set; } 
         public Direction currDirection { get; set; }
         public State currState;
         public double aniCounter;
@@ -25,7 +25,7 @@ namespace Game1.Code.Components
 
         public Animation(int width, int height)
         {
-            aWidth = width;
+            aWidth = width; 
             aHeight = height;
             aniCounter = 0;
             animationIndex = 0;
@@ -64,26 +64,33 @@ namespace Game1.Code.Components
 			currDirection = direction;
 		}
 
-		private void ChangeState()
+		protected virtual void ChangeState()
 		{
 			switch (currDirection)
 			{
 				case Direction.Up:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight + 1, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight, aWidth, aHeight);
 					break;
 				case Direction.Down:
 					TextureRectangle = new Rectangle(aWidth * animationIndex, 0, aWidth, aHeight);
 					break;
 				case Direction.Left:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 2 + 2, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 2, aWidth, aHeight);
 					break;
 				case Direction.Right:
-					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 3 + 3, aWidth, aHeight);
+					TextureRectangle = new Rectangle(aWidth * animationIndex, aHeight * 3, aWidth, aHeight);
 					break;
 			}
 
 			animationIndex = (animationIndex == 0) ? 1 : 0;
 			currState = State.Standing;
+		}
+
+		public void Stand()
+		{
+			currState = State.Standing;
+			animationIndex = 0;
+			ChangeState();
 		}
 
 		public override void Draw(SpriteBatch spritebatch)

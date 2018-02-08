@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game1.Code.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,16 +12,16 @@ namespace Game1.Code.Components
     class Sprite : Component
     {
         private Texture2D my_texture;
-        private int width;
-        private int height;
-        private Vector2 pos;
+        public int width { get; private set; }
+        public int height { get; private set; }
+        public Vector2 Position { get; private set; }
 
         public Sprite(Texture2D texture, int width, int height, Vector2 position)
         {
             my_texture = texture;
             this.width = width;
             this.height = height;
-            pos = position;
+            Position = position;
         }
 
         public override ComponentType ComponentType
@@ -35,14 +36,22 @@ namespace Game1.Code.Components
 
         public override void Draw(SpriteBatch spritebatch)
         {
+			var camera = GetComponent<Camera>(ComponentType.Camera);
+			Vector2 pos;
+			if (!(camera != null && camera.GetPosition(Position, out pos)))
+				return;
+
 			var ani = GetComponent<Animation>(ComponentType.Animation);
 			if(ani != null)
 			{
-				spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, Color.White);
+				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, 2, spritebatch);
+
+				//spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, Color.White);
 			}
 			else
 			{
-				spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), spritebatch);
+				//spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 			}
 
         }
@@ -50,7 +59,7 @@ namespace Game1.Code.Components
         public void Move(float x, float y)
         {
             //Update pos based on movement
-            pos = new Vector2(pos.X + x, pos.Y + y);
+            Position = new Vector2(Position.X + x, Position.Y + y);
 
 			var ani = GetComponent<Animation>(ComponentType.Animation);
 			if (ani == null) return;
@@ -68,8 +77,9 @@ namespace Game1.Code.Components
 			}else if (y < 0)
 			{
 				ani.ResetCounter(State.Walking, Direction.Up);
+			}else { // No movement default
+				ani.Stand();
 			}
-
 		}
     }
 }
