@@ -67,8 +67,8 @@ namespace Game1.Code.Loader
 					int xpos = n % mapWidth;
 					int ypos = n / mapWidth;
 					int zpos = 0;
-					int txpos = tileID % columns - 1;
-					int typos = tileID / columns;
+					int txpos = (tileID - 1) % columns;
+					int typos = (tileID - 1) / columns;
 					Tile t;
 
 					if (_uniqueTiles.Contains(tileID - 1))

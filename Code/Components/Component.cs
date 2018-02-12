@@ -38,5 +38,7 @@ namespace Game1.Code
         public abstract void Update(double gameTime);
         public abstract void Draw(SpriteBatch spritebatch);
 
+		public virtual void Initialize() { }
+		public virtual void Uninitalize() { }
     }
 }

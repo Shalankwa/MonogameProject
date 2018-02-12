@@ -23,9 +23,6 @@ namespace Game1.Code.Map
 
 		public Vector2 Position { get { return new Vector2(xPos*width, yPos*height); } }
 
-		public int TextureXPos { get; set; }
-		public int TextureYPos { get; set; }
-
 		List<TileFrame> tileFrames;
 		public int animationSpeed { get; set; }
 		private double _frameCounter = 0;
@@ -84,11 +81,9 @@ namespace Game1.Code.Map
 
 		public void Draw(SpriteBatch sb)
 		{
-			var screenPos = cameraManager.WorldToScreenPosition(Position);
 			if (cameraManager.InScreenCheck(Position))
 			{
-
-				//FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, null, spritebatch);
+				var screenPos = cameraManager.WorldToScreenPosition(Position);
 
 				FunctionManager.DrawAtLayer(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height),
 					new Rectangle(tileFrames[_animationIndex].TextureXPos * width, 

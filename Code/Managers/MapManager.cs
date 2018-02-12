@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,14 +27,18 @@ namespace Game1.Code.Managers
 		private CameraManager _cameraManager;
 		private ContentManager _content;
 
-		public MapManager(string mapName, CameraManager cameraManager, ContentManager content)
+		public MapManager(string mapName, CameraManager cameraManager)
 		{
-			_content = content;
 			_cameraManager = cameraManager;
 			_tiles = new List<Tile>();
 			_tileCollisions = new List<TileCollision>();
 			_mapName = mapName;
 			CameraManager.FireCameraTransition += loadNewArea;
+		}
+
+		public void Uninitialize()
+		{
+			CameraManager.FireCameraTransition -= loadNewArea;
 		}
 
 		private void loadNewArea(object sender, CameraTransitionEvent e)
@@ -71,7 +76,7 @@ namespace Game1.Code.Managers
 
 		public void LoadContent(ContentManager content)
 		{
-
+			_content = content;
 			TileMapLoader.LoadTileMap<Tile>(_mapArea, out _tiles, out _tileCollisions);
 
 			foreach(var tile in _tiles)

@@ -71,8 +71,9 @@ namespace Game1.Code.Managers
             CheckKeyState(Keys.D, Input.Right);
             CheckKeyState(Keys.S, Input.Down);
             CheckKeyState(Keys.W, Input.Up);
+            CheckKeyState(Keys.Enter, Input.Enter);
 
-            oldKeyState = keyState;
+			oldKeyState = keyState;
         }
 
         private void CheckKeyState(Keys key, Input fireInput)

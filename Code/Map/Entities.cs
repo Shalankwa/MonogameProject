@@ -43,5 +43,16 @@ namespace Game1.Code.Map
 			}
 		}
 
+		public void Initialize()
+		{
+
+		}
+
+		public void Uninitialize()
+		{
+			if (_entities == null) return;
+
+		}
+
 	}
 }

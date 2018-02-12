@@ -25,8 +25,6 @@ namespace Game1.Code.Managers
 			remove { _FireCameraTransition -= value; }
 		}
 
-
-
 		public CameraManager(Point screenSize)
 		{
 			_screenSize = screenSize;

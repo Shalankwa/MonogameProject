@@ -23,13 +23,21 @@ namespace Game1.Code.Components
             InputManager.FireNewInput += PlayerAction;
         }
 
-        //Perform PlayerAction based on event Args
-        void PlayerAction(object sender, NewInputEventArgs e)
+		public override void Uninitalize()
+		{
+			InputManager.FireNewInput -= PlayerAction;
+		}
+
+		//Perform PlayerAction based on event Args
+		void PlayerAction(object sender, NewInputEventArgs e)
         {
 
             //Get sprite component from BaseObject class
             var sprite = GetComponent<Sprite>(ComponentType.Sprite);
             if (sprite == null) return;
+
+			var camera = GetComponent<Camera>(ComponentType.Camera);
+			if (camera == null || camera.GetInTransition()) return;
 
 			var collision = GetComponent<Collision>(ComponentType.Collision);
 
@@ -38,6 +46,7 @@ namespace Game1.Code.Components
 
             switch (e.Input)
             {
+
                 case Input.Up:
 					y = -1.5f;
                     break;
@@ -56,10 +65,6 @@ namespace Game1.Code.Components
 				new Rectangle((int)(sprite.Position.X + x), (int)(sprite.Position.Y + y), sprite.width, sprite.height))){
 				sprite.Move(x, y);
 			}
-
-			var camera = GetComponent<Camera>(ComponentType.Camera);
-			if (camera == null)
-				return;
 
 			Vector2 position;
 

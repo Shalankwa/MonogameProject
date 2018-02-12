@@ -39,6 +39,11 @@ namespace Game1.Code.Components
 			return _cameraManager.GetDirectionOutOfScreen(position);
 		}
 
+		public bool GetInTransition()
+		{
+			return _cameraManager.gameLocked;
+		}
+
 		public override void Draw(SpriteBatch spritebatch)
 		{
 			

@@ -39,17 +39,18 @@ namespace Game1.Code.Managers
 		{
 			if (Layer == null) Layer = 0;
 
-			float flayer = (float)(destination.Y / 240.0 + (Layer * (240 / 15) / 240.0));
+			// Determine float value for layer based on Y location + the layer they are on
+			float flayer = (float)(destination.Y / 2000.0 + (Layer * (2000.0 / 15) / 2000.0));
+			// Clamp value between 0 - 1
 			if (flayer < 0) flayer = 0;
 			if (flayer > 1) flayer = 1;
-			//Debug.Print("drawn on layer: " + flayer + " with ybound: " + destination.Y);
 
+			// Draw at position and layer
 			spriteBatch.Draw(texture, destination, sourceRectangle, Color.White, 0, new Vector2(0,0), SpriteEffects.None, flayer);
 		}
 
 		internal static void DrawAtLayer(Texture2D texture, Rectangle destination, SpriteBatch spriteBatch)
 		{
-			
 			float flayer = texture.Bounds.Y / 240;
 			spriteBatch.Draw(texture, destination, destination, Color.White, 0, new Vector2(0,0), SpriteEffects.None, flayer);
 		}

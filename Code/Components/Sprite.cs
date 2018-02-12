@@ -38,6 +38,8 @@ namespace Game1.Code.Components
         {
 			var camera = GetComponent<Camera>(ComponentType.Camera);
 			Vector2 pos;
+
+			// if camera not found, or not in screen, exit, no draw
 			if (!(camera != null && camera.GetPosition(Position, out pos)))
 				return;
 
@@ -45,8 +47,8 @@ namespace Game1.Code.Components
 			if(ani != null)
 			{
 				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, 2, spritebatch);
-
 				//spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, Color.White);
+				// Old method for drawing before layering
 			}
 			else
 			{
