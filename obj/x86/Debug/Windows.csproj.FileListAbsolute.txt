@@ -32,3 +32,7 @@ C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Co
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\F_04.xnb
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\Map2_X4_Y4.tmx
 C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\Map2_X3_Y4.tmx
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\Map2_X5_Y4.tmx
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Knight.xnb
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\HIRED-HERO.xnb
+C:\Users\Jonathan\source\repos\Project2\MonogameProject\bin\Windows\x86\Debug\Content\Maps\MapTitleScreen_X4_Y4.tmx

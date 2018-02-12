@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="45016">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="46552">
       <assemblyIdentity name="Game1" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DkTHjdoGtoq07eQDy0vZ0yK/ZsjJUD55QfA35lYE8K4=</dsig:DigestValue>
+        <dsig:DigestValue>kXQB9cUmOTnpcQiTdIL07A+nXwx+D3AKMyp4PSZzcto=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -189,6 +189,24 @@
       <dsig:DigestValue>d9HV7jx7ikwoJsTRIzzppSXFPMcryaAMwnx5in+8h88=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\HIRED-HERO.xnb" size="274085">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>UD4rZfhRc8nYYU2qmthqFOJkrhd0kCW2aEY8zSINap8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\Knight.xnb" size="13141">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>3HxybJYXyYmr1Du86nY1Y1LAKwZBNcSjRRBXmNvSsQU=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\link_full.png" size="4679">
     <hash>
       <dsig:Transforms>
@@ -223,6 +241,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>pNBD+p//bWvHrUsSW89PruE8EJd3JePwdAvZhqSmhjA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\Maps\Map2_X5_Y4.tmx" size="10375">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BXYQN3fWJC0lx7EsOerYF0KL7ihk7SXVf0gb9ZLWnz4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\Maps\MapTitleScreen_X4_Y4.tmx" size="10123">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>paf9XGsJ6FaICDIoN3GnU2tTQIJZMOxtm7xEjZz+zdA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="hourglass.ico" size="10366">

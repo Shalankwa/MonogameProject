@@ -2,6 +2,8 @@
 using Game1.Code.Components;
 using Game1.Code.Components.AIControllers;
 using Game1.Code.Managers;
+using Game1.Code.Map;
+using Game1.Code.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,11 +18,11 @@ namespace Game1
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-		private BaseObject player;
-		private BaseObject _FirstNPC;
+
 		private InputManager manageInput;
-		private MapManager manageMap;
-		private CameraManager cameraManager;
+		private ScreenManager screenManager;
+
+		// Screen Sizes for spritebatch rendering
 		Point virtualScreenSize = new Point(320, 240);
 		Point screenSize = new Point(1080, 720);
 
@@ -33,14 +35,11 @@ namespace Game1
 			this.graphics.PreferredBackBufferWidth = screenSize.X;
 			this.graphics.PreferredBackBufferHeight = screenSize.Y;
 
-			//Resolution.SetVirtualResolution(320, 270);
+			// Resolution class method of setting resolution, Uses Matrix, causes pixel errors
+			//Resolution.SetVirtualResolution(320, 270);		
 			//Resolution.SetResolution(320 * 2, 270 * 2, false);
 
-			player = new BaseObject();
-			_FirstNPC = new BaseObject();
 			manageInput = new InputManager();
-			cameraManager = new CameraManager(virtualScreenSize);
-			manageMap = new MapManager("Map2", cameraManager, Content);
 
 
 		}
@@ -67,20 +66,10 @@ namespace Game1
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			manageMap.LoadContent(Content);
 
-			player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16, 16, new Vector2(50, 50)));
-			player.AddComponent(new PlayerInput());
-			player.AddComponent(new Animation(16, 16));
-			player.AddComponent(new Collision(manageMap));
-			player.AddComponent(new Camera(cameraManager));
-
-			_FirstNPC.AddComponent(new Sprite(Content.Load<Texture2D>("F_04"), 16, 16, new Vector2(150, 150)));
-			_FirstNPC.AddComponent(new AIMovement(300));
-			_FirstNPC.AddComponent(new AnimationNPC(16, 16));
-			_FirstNPC.AddComponent(new Collision(manageMap));
-			_FirstNPC.AddComponent(new Camera(cameraManager));
-
+			screenManager = new ScreenManager(Content);
+			//screenManager.loadNewScreen(new ScreenDungeon(screenManager, virtualScreenSize, Content));
+			screenManager.loadNewScreen(new ScreenStart(screenManager, virtualScreenSize, Content));
 
 
 			// TODO: use this.Content to load your game content here
@@ -106,14 +95,10 @@ namespace Game1
 				Exit();
 
 			// TODO: Add your update logic here
-			cameraManager.Update(gameTime.ElapsedGameTime.Milliseconds);
-			if (cameraManager.gameLocked) return;
+
 
 			manageInput.Update(gameTime.ElapsedGameTime.Milliseconds);
-			player.Update(gameTime.ElapsedGameTime.Milliseconds);
-			_FirstNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
-			manageMap.Update(gameTime.ElapsedGameTime.Milliseconds);
-			
+			screenManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
 
 			base.Update(gameTime);
@@ -130,14 +115,17 @@ namespace Game1
 			//spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Resolution.getTransformationMatrix());
 
 			SpriteBatch targetBatch = new SpriteBatch(GraphicsDevice);
-			RenderTarget2D target = new RenderTarget2D(GraphicsDevice, 320, 240);
+			RenderTarget2D target = new RenderTarget2D(GraphicsDevice, virtualScreenSize.X, virtualScreenSize.Y);
 			GraphicsDevice.SetRenderTarget(target);
 
+
 			spriteBatch.Begin(sortMode:SpriteSortMode.FrontToBack);
-			manageMap.Draw(spriteBatch);
-			player.Draw(spriteBatch);
-			_FirstNPC.Draw(spriteBatch);
+
+			screenManager.Draw(spriteBatch);
+
 			spriteBatch.End();
+
+
 
 			//set rendering back to the back buffer
 			GraphicsDevice.SetRenderTarget(null);

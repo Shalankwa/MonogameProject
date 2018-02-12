@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Jonathan/source/repos/Project2/MonogameProject/Content/dungeon_sheet.png</SourceFile>
-  <SourceTime>2018-02-04T17:57:40.0087075-05:00</SourceTime>
-  <DestFile>C:/Users/Jonathan/source/repos/Project2/MonogameProject/Content/bin/Windows/dungeon_sheet.xnb</DestFile>
-  <DestTime>2018-02-08T22:03:23.6924781-05:00</DestTime>
+  <SourceFile>C:/Users/Jonathan/source/repos/Project2/MonogameProject/Content/Knight.png</SourceFile>
+  <SourceTime>2018-02-08T18:53:48.1228327-05:00</SourceTime>
+  <DestFile>C:/Users/Jonathan/source/repos/Project2/MonogameProject/Content/bin/Windows/Knight.xnb</DestFile>
+  <DestTime>2018-02-08T22:03:23.6974783-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

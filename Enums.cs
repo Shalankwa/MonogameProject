@@ -15,7 +15,8 @@ public enum Input
     Right,
     Up,
     Down,
-    None
+    None,
+	Enter
 }
 
 public enum Direction
