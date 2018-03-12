@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace Game1.Code.Screens
 
 		public override void Initialize()
 		{
+
 		}
 
 		public override void LoadContent(ContentManager content)
@@ -37,13 +39,20 @@ namespace Game1.Code.Screens
 			manageMap.LoadContent(content);
 
 			var player = new BaseObject();
+			player.Id = FunctionManager.getID();
 			player.AddComponent(new Sprite(content.Load<Texture2D>("link_full"), 16, 16, new Vector2(220, 150)));
 			player.AddComponent(new PlayerInput());
 			player.AddComponent(new Animation(16, 16));
 			player.AddComponent(new Collision(manageMap));
 			player.AddComponent(new Camera(cameraManager));
+			player.AddComponent(new Damage(_entities));
+			player.AddComponent(new GUI());
+			player.AddComponent(new Stats(100));
+			player.GetComponent<GUI>(ComponentType.GUI).LoadContent(content);
+
 
 			var _FirstNPC = new BaseObject();
+			_FirstNPC.Id = FunctionManager.getID();
 			_FirstNPC.AddComponent(new Sprite(content.Load<Texture2D>("F_04"), 16, 16, new Vector2(150, 150)));
 			_FirstNPC.AddComponent(new AIMovement(300));
 			_FirstNPC.AddComponent(new AnimationNPC(16, 16));
@@ -51,6 +60,7 @@ namespace Game1.Code.Screens
 			_FirstNPC.AddComponent(new Camera(cameraManager));
 
 			var _FirstKnight = new BaseObject();
+			_FirstKnight.Id = FunctionManager.getID();
 			_FirstKnight.AddComponent(new Sprite(content.Load<Texture2D>("Knight"), 16, 16, new Vector2(100, 150)));
 			_FirstKnight.AddComponent(new AIMovement(300));
 			_FirstKnight.AddComponent(new AnimationNPC(16, 16));

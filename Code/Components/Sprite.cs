@@ -9,12 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1.Code.Components
 {
-    class Sprite : Component
-    {
-        private Texture2D my_texture;
-        public int width { get; private set; }
-        public int height { get; private set; }
-        public Vector2 Position { get; private set; }
+	class Sprite : Component
+	{
+		private Texture2D my_texture;
+		public Color colour { get; set; }
+		public int width { get; private set; }
+		public int height { get; private set; }
+		public Vector2 Position { get; private set; }
+		public Rectangle Rectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, width, height); } }
 
         public Sprite(Texture2D texture, int width, int height, Vector2 position)
         {
@@ -22,6 +24,7 @@ namespace Game1.Code.Components
             this.width = width;
             this.height = height;
             Position = position;
+			colour = Color.White;
         }
 
         public override ComponentType ComponentType
@@ -46,7 +49,7 @@ namespace Game1.Code.Components
 			var ani = GetComponent<Animation>(ComponentType.Animation);
 			if(ani != null)
 			{
-				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, 2, spritebatch);
+				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, 2, colour, spritebatch);
 				//spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), ani.TextureRectangle, Color.White);
 				// Old method for drawing before layering
 			}

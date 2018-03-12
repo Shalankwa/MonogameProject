@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.Code.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,24 @@ namespace Game1.Code.Map
 		{
 			if (_entities == null) return;
 
+		}
+
+		public bool CheckCollision(Rectangle rectangle, int ID)
+		{
+			foreach(var baseObj in _entities)
+			{
+				if (ID == baseObj.Id) continue;
+
+				var sprite = baseObj.GetComponent<Sprite>(ComponentType.Sprite);
+				if (sprite == null) continue;
+
+				if (sprite.Rectangle.Intersects(rectangle))
+				{
+					return true;
+				}
+
+			}
+			return false;
 		}
 
 	}
