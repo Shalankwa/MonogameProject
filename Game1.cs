@@ -69,7 +69,7 @@ namespace Game1
 
 			screenManager = new ScreenManager(Content);
 			//screenManager.loadNewScreen(new ScreenDungeon(screenManager, virtualScreenSize, Content));
-			screenManager.loadNewScreen(new ScreenStart(screenManager, virtualScreenSize, Content));
+			screenManager.loadNewScreen(new ScreenDungeon(screenManager, virtualScreenSize, Content));
 
 
 			// TODO: use this.Content to load your game content here
@@ -124,8 +124,6 @@ namespace Game1
 			screenManager.Draw(spriteBatch);
 
 			spriteBatch.End();
-
-
 
 			//set rendering back to the back buffer
 			GraphicsDevice.SetRenderTarget(null);

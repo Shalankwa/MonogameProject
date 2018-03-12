@@ -6,7 +6,10 @@
 	Collision,
 	AIMovement,
 	AnimationNPC,
-	Camera
+	Camera,
+	GUI,
+	Damage,
+	Stats
 }
 
 public enum Input
