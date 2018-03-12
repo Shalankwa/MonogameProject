@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="46552">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="49112">
       <assemblyIdentity name="Game1" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kXQB9cUmOTnpcQiTdIL07A+nXwx+D3AKMyp4PSZzcto=</dsig:DigestValue>
+        <dsig:DigestValue>m2gAXWkhE4U1MwjEJbwcohPnNMNiCr2GWgVSe2hlrGc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -162,6 +162,33 @@
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Content\bar.xnb" size="1109">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xiju+rxGUSSVe87x5QpgvsjKdsZT/JxYfygzgPWvT6c=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\bar_GUI.xnb" size="1109">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>A4iAQQnoKHH8xD7DJHvklmReP+Tsp49WaMU2f549CME=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\container_GUI.xnb" size="1109">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>WUnaoUvCUWo1Ue8SfZLW4UostnBiuptrZkkX1csO1ko=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\dungeon_sheet.png" size="15210">
     <hash>
       <dsig:Transforms>
