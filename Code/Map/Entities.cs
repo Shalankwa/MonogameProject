@@ -30,9 +30,15 @@ namespace Game1.Code.Map
 
 		public void Update(double gameTime)
 		{
-			foreach (var baseObject in _entities)
+
+			for (int i = 0; i < _entities.Count; i++)
 			{
-				baseObject.Update(gameTime);
+				_entities[i].Update(gameTime);
+				if (_entities[i].Dead)
+				{
+					_entities.RemoveAt(i);
+					i--;
+				}
 			}
 		}
 
@@ -55,7 +61,7 @@ namespace Game1.Code.Map
 
 		}
 
-		public bool CheckCollision(Rectangle rectangle, int ID)
+		public bool CheckCollision(Rectangle rectangle, out BaseObject hitObj, int ID)
 		{
 			foreach(var baseObj in _entities)
 			{
@@ -66,10 +72,12 @@ namespace Game1.Code.Map
 
 				if (sprite.Rectangle.Intersects(rectangle))
 				{
+					hitObj = baseObj;
 					return true;
 				}
 
 			}
+			hitObj = null;
 			return false;
 		}
 

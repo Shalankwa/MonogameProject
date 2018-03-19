@@ -36,6 +36,9 @@ namespace Game1.Code.Components
             var sprite = GetComponent<Sprite>(ComponentType.Sprite);
             if (sprite == null) return;
 
+			var ani = GetComponent<Animation>(ComponentType.Animation);
+			if (ani == null) return;
+
 			var camera = GetComponent<Camera>(ComponentType.Camera);
 			if (camera == null || camera.GetInTransition()) return;
 
@@ -44,26 +47,41 @@ namespace Game1.Code.Components
 			var x = 0f;
 			var y = 0f;
 
+			var inventory = GetComponent<Inventory>(ComponentType.Inventory);
+
             switch (e.Input)
             {
-
                 case Input.Up:
 					y = -1.5f;
+					ani.currDirection = Direction.Up;
                     break;
                 case Input.Down:
 					y = 1.5f;
+					ani.currDirection = Direction.Down;
 					break;
                 case Input.Left:
 					x = -1.5f;
+					ani.currDirection = Direction.Left;
 					break;
                 case Input.Right:
 					x = 1.5f;
+					ani.currDirection = Direction.Right;
 					break;
-            }
+				case Input.LeftClick:
+					inventory.UseItemInSlot(ItemSlot.slot1);
+					break;
+				case Input.RightClick:
+					inventory.UseItemInSlot(ItemSlot.slot2);
+					break;
+			}
 
 			if(collision != null && !collision.CheckCollision(
 				new Rectangle((int)(sprite.Position.X + x), (int)(sprite.Position.Y + y), sprite.width, sprite.height))){
 				sprite.Move(x, y);
+			}
+			else
+			{
+				ani.currState = State.Walking;
 			}
 
 			Vector2 position;

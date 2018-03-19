@@ -48,13 +48,10 @@ namespace Game1.Code.Managers
 
 		public static void DrawAtLayer(Texture2D texture, Rectangle destination, Nullable<Rectangle> sourceRectangle, Nullable<int> Layer, SpriteBatch spriteBatch)
 		{
-			if (Layer == null) Layer = 0;
 
 			// Determine float value for layer based on Y location + the layer they are on
-			float flayer = (float)(destination.Y / 2000.0 + (Layer * (2000.0 / 15) / 2000.0));
-			// Clamp value between 0 - 1
-			if (flayer < 0) flayer = 0;
-			if (flayer > 1) flayer = 1;
+			float flayer = getLayerFloat(destination.Y, Layer);
+			
 
 			// Draw at position and layer
 			spriteBatch.Draw(texture, destination, sourceRectangle, Color.White, 0, new Vector2(0,0), SpriteEffects.None, flayer);
@@ -62,32 +59,41 @@ namespace Game1.Code.Managers
 
 		public static void DrawAtLayer(Texture2D texture, Rectangle destination, Nullable<Rectangle> sourceRectangle, Nullable<int> Layer, Nullable<Color> colour, SpriteBatch spriteBatch)
 		{
-			if (Layer == null) Layer = 0;
 			if (colour == null) colour = Color.White;
 
 
 			// Determine float value for layer based on Y location + the layer they are on
-			float flayer = (float)(destination.Y / 2000.0 + (Layer * (2000.0 / 15) / 2000.0));
-			// Clamp value between 0 - 1
-			if (flayer < 0) flayer = 0;
-			if (flayer > 1) flayer = 1;
+			float flayer = getLayerFloat(destination.Y, Layer);
 
 
 			// Draw at position and layer
 			spriteBatch.Draw(texture, destination, sourceRectangle, colour.Value, 0, new Vector2(0, 0), SpriteEffects.None, flayer);
 		}
 
-		public static void DrawGUI(Texture2D texture, Rectangle destination, Nullable<Rectangle> sourceRectangle, Nullable<Color> colour, SpriteBatch spriteBatch)
+		public static void DrawAtLayer(Texture2D texture, Rectangle destination, float rotation, Nullable<Rectangle> sourceRectangle, Nullable<int> Layer, Nullable<Color> colour, SpriteBatch spriteBatch)
 		{
+
 			if (colour == null) colour = Color.White;
+			
+			// Determine float value for layer based on Y location + the layer they are on
+			float flayer = getLayerFloat(destination.Y, Layer);
+
+			float centerX = (float)(texture.Width / 2.0);
+			float centerY = (float)(texture.Height / 2.0);
+
+			destination = new Rectangle((int)(destination.X + centerX), (int)(destination.Y + centerY), destination.Width, destination.Height);
+
 			// Draw at position and layer
-			spriteBatch.Draw(texture, destination, sourceRectangle, colour.Value, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+			spriteBatch.Draw(texture, destination, sourceRectangle, colour.Value, rotation, new Vector2(centerX, centerY), SpriteEffects.None, flayer);
 		}
 
-		internal static void DrawAtLayer(Texture2D texture, Rectangle destination, SpriteBatch spriteBatch)
+		private static float getLayerFloat(double posY, Nullable<int> Layer)
 		{
-			float flayer = texture.Bounds.Y / 240;
-			spriteBatch.Draw(texture, destination, destination, Color.White, 0, new Vector2(0,0), SpriteEffects.None, flayer);
+			if (Layer == null) Layer = 0;
+			float flayer = (float)((Layer * 0.1) + (posY / 10000));
+			if (flayer < 0) flayer = 0;
+			if (flayer > 1) flayer = 1;
+			return flayer;
 		}
 	}
 }

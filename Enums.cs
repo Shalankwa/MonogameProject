@@ -9,7 +9,8 @@
 	Camera,
 	GUI,
 	Damage,
-	Stats
+	Stats,
+	Inventory
 }
 
 public enum Input
@@ -19,7 +20,9 @@ public enum Input
     Up,
     Down,
     None,
-	Enter
+	Enter,
+	LeftClick,
+	RightClick
 }
 
 public enum Direction
@@ -35,4 +38,26 @@ public enum State
 {
     Standing,
     Walking
+}
+
+public enum ItemSlot
+{
+	slot1,
+	slot2,
+	slot3,
+	slot4
+}
+
+public enum Objects
+{
+	TriggerScene,
+	Sign,
+	Enemy
+}
+
+public enum Scene
+{
+	Shop,
+	Dungeon,
+	Town
 }

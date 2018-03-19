@@ -12,7 +12,10 @@ namespace Game1.Code.Managers
     {
         private KeyboardState keyState;
         private KeyboardState oldKeyState;
-        private Keys lastKey;
+		private MouseState mouseState;
+		private MouseState oldMouseState;
+		private Keys lastKey;
+		private ButtonState lastMousePress;
         private static event EventHandler<NewInputEventArgs> _FireNewInput;
         private double counter;
         private static double cooldown;
@@ -54,8 +57,10 @@ namespace Game1.Code.Managers
         private void ComputerControlls(double gameTime)
         {
             keyState = Keyboard.GetState();
+			mouseState = Mouse.GetState();
 
-            if (keyState.IsKeyUp(lastKey) && lastKey != Keys.None)
+			// || (lastMousePress == ButtonState.Released)
+			if ((keyState.IsKeyUp(lastKey) && lastKey != Keys.None))
             {
                 if (_FireNewInput != null)
                 {
@@ -63,7 +68,10 @@ namespace Game1.Code.Managers
                 }
             }
 
-            CheckKeyState(Keys.Left, Input.Left);
+			CheckMouseState(mouseState.LeftButton, Input.LeftClick);
+			CheckMouseState(mouseState.RightButton, Input.RightClick);
+
+			CheckKeyState(Keys.Left, Input.Left);
             CheckKeyState(Keys.Right, Input.Right);
             CheckKeyState(Keys.Down, Input.Down);
             CheckKeyState(Keys.Up, Input.Up);
@@ -71,10 +79,12 @@ namespace Game1.Code.Managers
             CheckKeyState(Keys.D, Input.Right);
             CheckKeyState(Keys.S, Input.Down);
             CheckKeyState(Keys.W, Input.Up);
-            CheckKeyState(Keys.Enter, Input.Enter);
+			CheckKeyState(Keys.Enter, Input.Enter);
 
 			oldKeyState = keyState;
-        }
+			oldMouseState = mouseState;
+
+		}
 
         private void CheckKeyState(Keys key, Input fireInput)
         {
@@ -90,5 +100,19 @@ namespace Game1.Code.Managers
                 }
             }
         }
-    }
+
+		private void CheckMouseState(ButtonState button, Input fireInput)
+		{
+			if (button == ButtonState.Pressed)
+			{
+				if (!ThrottleInput)
+				{
+					if (_FireNewInput != null)
+					{
+						_FireNewInput(this, new NewInputEventArgs(fireInput));
+					}
+				}
+			}
+		}
+	}
 }

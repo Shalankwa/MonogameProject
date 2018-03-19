@@ -24,8 +24,18 @@ namespace Game1.Code
             return base_Object.Id;
         }
 
-        //Delete this component from parent
-        public void RemoveComp()
+		public void KillBase()
+		{
+			base_Object.Dead = true;
+		}
+
+		public bool GetHosility()
+		{
+			return base_Object.Hostile;
+		}
+
+		//Delete this component from parent
+		public void RemoveComp()
         {
             base_Object.RemoveComponent(this);
         }

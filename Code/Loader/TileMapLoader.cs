@@ -7,6 +7,8 @@ using System.Xml.Serialization;
 using System.Xml.Linq;
 using System.Diagnostics;
 using Game1.Code.Map;
+using Game1.Code.EventHandlers;
+using Microsoft.Xna.Framework;
 
 namespace Game1.Code.Loader
 {
@@ -19,11 +21,20 @@ namespace Game1.Code.Loader
 		private static int columns;
 		private static int currLayer;
 		private static string tileSet_name;
+		private static event EventHandler<NewMapObjectEvent> _newMapObject;
+
+		//Static access to subscribe to event
+		public static event EventHandler<NewMapObjectEvent> NewMapObject
+		{
+			add { _newMapObject += value; }
+			remove { _newMapObject -= value; }
+		}
 
 		public static bool LoadTileMap<T>(string mapName, out List<Tile> tiles, out List<TileCollision> collisions)
 		{
 			collisions = new List<TileCollision>();
 			tiles = new List<Tile>();
+
 
 			//Link TMX document
 			XDocument xDox;
@@ -60,7 +71,8 @@ namespace Game1.Code.Loader
 				string[] sTileIDS = TileIDs.Split(',');
 
 				for (int n = 0; n < sTileIDS.Length; n++)
-				{
+				{		
+
 					int tileID = int.Parse(sTileIDS[n]);
 					if (tileID == 0) continue;
 
@@ -88,6 +100,47 @@ namespace Game1.Code.Loader
 				currLayer++;
 			}
 
+
+			//Read Objects to be placed
+			XElement objects;
+			try
+			{
+				objects  = xDox.Root.Elements("objectgroup").Last();
+			}
+			catch (Exception e)
+			{
+				return true;
+			}
+			
+			foreach (XElement elm in objects.Descendants("object"))
+			{
+
+				string atri = elm.Attributes().ToString();
+				string name = elm.Attribute("name").Value;
+				int x = int.Parse(elm.Attribute("x").Value);
+				int y = int.Parse(elm.Attribute("y").Value);
+
+				Dictionary<string, string> properties = new Dictionary<string, string>(); ;
+
+				if (elm.Attribute("width") != null)
+				{
+					int width = int.Parse(elm.Attribute("width").Value);
+					int height = int.Parse(elm.Attribute("height").Value);
+					properties.Add("width", width.ToString());
+					properties.Add("height", height.ToString());
+				}
+
+				foreach (XElement property in elm.Descendants("property"))
+				{
+					properties.Add(property.Attribute("name").Value, property.Attribute("value").Value);
+				}
+
+				if (Objects.TriggerScene.ToString().Equals(elm.Attribute("name").Value))
+				{
+					_newMapObject(null, new NewMapObjectEvent(Objects.TriggerScene, new Vector2(x, y), properties));
+				}
+
+			}
 			return true;
 		}
 

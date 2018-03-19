@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Game1.Code.Components
 		public int height { get; private set; }
 		public Vector2 Position { get; private set; }
 		public Rectangle Rectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, width, height); } }
+		public float rotation { get; set; }
 
         public Sprite(Texture2D texture, int width, int height, Vector2 position)
         {
@@ -25,6 +27,7 @@ namespace Game1.Code.Components
             this.height = height;
             Position = position;
 			colour = Color.White;
+			rotation = 0;
         }
 
         public override ComponentType ComponentType
@@ -55,9 +58,10 @@ namespace Game1.Code.Components
 			}
 			else
 			{
-				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), spritebatch);
-				//spritebatch.Draw(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+				FunctionManager.DrawAtLayer(my_texture, new Rectangle((int)pos.X, (int)pos.Y, width, height), rotation, null, 2, null, spritebatch);
+
 			}
+			
 
         }
 
@@ -85,6 +89,22 @@ namespace Game1.Code.Components
 			}else { // No movement default
 				ani.Stand();
 			}
+		}
+
+		public void rotateAroundObj(Vector2 pos, float rotation)
+		{
+			Position = Vector2.Transform(Position - pos, Matrix.CreateRotationZ(rotation)) + pos;
+
+		}
+
+		public void rotateAroundObjAtDistance(Vector2 pos, float rotation, int distance)
+		{
+			Position = Vector2.Transform(Position - pos, Matrix.CreateRotationZ(rotation)) + pos;
+		}
+
+		public void Teleport(Vector2 pos)
+		{
+			Position = pos;
 		}
     }
 }

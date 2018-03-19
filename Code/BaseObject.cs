@@ -10,13 +10,17 @@ namespace Game1.Code
     class BaseObject
     {
         public int Id { get; set; }
-        private readonly List<Component> components;
+		public bool Dead { get; set; }
+		public bool Hostile { get; set; }
+
+		private readonly List<Component> components;
 
         //Construct
         public BaseObject()
         {
+			Hostile = false;
+			Dead = false;
             components = new List<Component>();
-
         }
 
         //Unsure Look into later, looks like finder metheod for components in component list
@@ -49,7 +53,7 @@ namespace Game1.Code
         }
 
         //Update all components attached to this BaseObject
-        public void Update(double gameTime)
+        public virtual void Update(double gameTime)
         {
             foreach(var componet in components)
             {
@@ -58,7 +62,7 @@ namespace Game1.Code
         }
 
         //Draw all components attached to this BaseObject
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach (var componet in components)
             {

@@ -67,9 +67,9 @@ namespace Game1
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			screenManager = new ScreenManager(Content);
+			screenManager = new ScreenManager(Content, virtualScreenSize);
 			//screenManager.loadNewScreen(new ScreenDungeon(screenManager, virtualScreenSize, Content));
-			screenManager.loadNewScreen(new ScreenDungeon(screenManager, virtualScreenSize, Content));
+			screenManager.loadNewScreen(new ScreenDungeon(screenManager, Content));
 
 
 			// TODO: use this.Content to load your game content here

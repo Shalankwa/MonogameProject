@@ -14,17 +14,15 @@ namespace Game1.Code.Screens
 	class ScreenStart : Screen
 	{
 		private Texture2D _backgroundImage;
-		private Point _screenSize;
 
 		private MapManager manageMap;
 		private CameraManager cameraManager;
 
 		ContentManager _content;
 
-		public ScreenStart(ScreenManager screenManager, Point screenSize, ContentManager content) : base(screenManager)
+		public ScreenStart(ScreenManager screenManager, ContentManager content) : base(screenManager)
 		{
-			_screenSize = screenSize;
-			cameraManager = new CameraManager(screenSize);
+			cameraManager = new CameraManager(screenManager._screenSize);
 			manageMap = new MapManager("MapTitleScreen", cameraManager);
 		}
 
@@ -37,14 +35,14 @@ namespace Game1.Code.Screens
 		{
 			manageMap.Uninitialize();
 			InputManager.FireNewInput -= StartScreen_InputManage;
-			_backgroundImage.Dispose();
+			//_backgroundImage.Dispose();
 		}
 
 		private void StartScreen_InputManage(object sender, NewInputEventArgs e)
 		{
 			if(e.Input  == Input.Enter)
 			{
-				ScreenManager.loadNewScreen(new ScreenDungeon(ScreenManager, _screenSize, _content));
+				ScreenManager.loadNewScreen(new ScreenDungeon(ScreenManager, _content));
 			}
 		}
 

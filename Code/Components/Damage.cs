@@ -45,16 +45,33 @@ namespace Game1.Code.Components
 				return;
 			}
 
-			if (_entities.CheckCollision(sprite.Rectangle, GetOwnerId()))
+			BaseObject hitObj;
+			if (_entities.CheckCollision(sprite.Rectangle, out hitObj, GetOwnerId()))
+			{
+				if(hitObj.Hostile && !GetHosility())
+					TakeDamage(5);
+			}
+		}
+
+		public void TakeDamage(int damage)
+		{
+			var sprite = GetComponent<Sprite>(ComponentType.Sprite);
+			if (sprite == null) return;
+
+			var stats = GetComponent<Stats>(ComponentType.Stats);
+			if (stats == null) return;
+
+			if (!_iFrames)
 			{
 				//take damage; 
 				stats.health -= 5;
+				if (stats.health <= 0) KillBase();
 
 				_iFrames = true;
 				_iframeCounter = 1500;
 				sprite.colour = new Color(100, 0, 0, 100);
-
 			}
+		
 		}
 
 		private void IFrames(double gameTime, Sprite sprite)

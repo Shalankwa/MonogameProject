@@ -1,4 +1,5 @@
 ﻿using Game1.Code.Screens;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,11 +14,13 @@ namespace Game1.Code.Managers
 	{
 		private Screen _currScreen;
 		private Screen _lastScreen;
-		private ContentManager _content;
+		public ContentManager _content { get; private set; }
+		public Point _screenSize { get; private set; }
 
-		public ScreenManager(ContentManager content)
+		public ScreenManager(ContentManager content, Point screenSize)
 		{
 			_content = content;
+			_screenSize = screenSize;
 		}
 
 		public void loadNewScreen(Screen screen)
