@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="84952">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Game1.exe" size="85464">
       <assemblyIdentity name="Game1" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vyp3KQE4W/Eh2jKA6zVwdOhaativekNmn7rCvCTPgcg=</dsig:DigestValue>
+        <dsig:DigestValue>Cba391dt/bD3FUEl/VOqgEge2R0WUmmQ9bHp88HH4Yg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -369,13 +369,13 @@
       <dsig:DigestValue>sFEdEkNKvdULqPi0FAr+LB6IcEsb1UuWn9mJMApVeLQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\Maps\Dungeon_X4_Y4.tmx" size="11142">
+  <file name="Content\Maps\Dungeon_X4_Y4.tmx" size="11315">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AQwvO4s8PJKvPZgfZnYRAZEee2ttYhu1MlNfJzJ2J2w=</dsig:DigestValue>
+      <dsig:DigestValue>HdVPTqZmdkf4GPQe6jW79yzO3rUu7DFHlemlGCzQIJY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Maps\Dungeon_X5_Y4.tmx" size="10995">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16" infinite="0" nextobjectid="7">
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16" infinite="0" nextobjectid="8">
  <tileset firstgid="1" name="dungeon_sheet" tilewidth="16" tileheight="16" tilecount="240" columns="24">
   <image source="../Artwork/dungeon_sheet.png" width="384" height="160"/>
   <tile id="6">
@@ -328,6 +328,11 @@
    <properties>
     <property name="Channel" value="2"/>
     <property name="Type" value="Switch"/>
+   </properties>
+  </object>
+  <object id="7" name="TriggerScene" x="144" y="0" width="48" height="12">
+   <properties>
+    <property name="TriggerScene" value="End"/>
    </properties>
   </object>
  </objectgroup>
