@@ -43,6 +43,10 @@ namespace Game1.Code.Components.AIControllers
 			if (sprite == null) return;
 
 			var collision = GetComponent<Collision>(ComponentType.Collision);
+			var camera = GetComponent<Camera>(ComponentType.Camera);
+			if (camera == null) return;
+
+			if (!camera.InScreen(sprite.Position)) return;
 
 			var x = 0f;
 			var y = 0f;

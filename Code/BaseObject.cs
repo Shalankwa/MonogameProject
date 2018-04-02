@@ -35,8 +35,18 @@ namespace Game1.Code
             components.Remove(comp);
         }
 
-        //Add a componet to this BaseObject
-        public void AddComponent(Component comp)
+		//Remove a componet from this BaseObject
+		public void RemoveAllComponents()
+		{
+			while(components.Count > 0)
+			{
+				components[0].Uninitalize();
+				RemoveComponent(components[0]);
+			}
+		}
+
+		//Add a componet to this BaseObject
+		public void AddComponent(Component comp)
         {
             components.Add(comp);
             comp.Initilize(this);
@@ -69,5 +79,6 @@ namespace Game1.Code
                 componet.Draw(spriteBatch);
             }
         }
-    }
+
+	}
 }

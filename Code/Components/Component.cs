@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game1.Code.Components;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1.Code
 {
-    abstract class Component
-    {
-        private BaseObject base_Object;
+	abstract class Component
+	{
+		protected BaseObject base_Object;
 
-        public abstract ComponentType ComponentType { get; }
+		public abstract ComponentType ComponentType { get; }
 
-        public void Initilize(BaseObject baseObject)
-        {
-            base_Object = baseObject;
-        }
+		public void Initilize(BaseObject baseObject)
+		{
+			base_Object = baseObject;
+		}
 
-        //Get parents ID
-        public int GetOwnerId()
-        {
-            return base_Object.Id;
-        }
+		//Get parents ID
+		public int GetOwnerId()
+		{
+			return base_Object.Id;
+		}
 
 		public void KillBase()
 		{
+			var Drops = GetComponent<Drop>(ComponentType.Drop);
+			if (Drops != null)
+			{
+				Drops.dropItem();
+			}
+
 			base_Object.Dead = true;
 		}
 
@@ -36,17 +43,17 @@ namespace Game1.Code
 
 		//Delete this component from parent
 		public void RemoveComp()
-        {
-            base_Object.RemoveComponent(this);
-        }
+		{
+			base_Object.RemoveComponent(this);
+		}
 
-        public TComponentType GetComponent<TComponentType>(ComponentType componentType) where TComponentType : Component
-        {
-            return base_Object.GetComponent<TComponentType>(componentType);
-        }
+		public TComponentType GetComponent<TComponentType>(ComponentType componentType) where TComponentType : Component
+		{
+			return base_Object.GetComponent<TComponentType>(componentType);
+		}
 
-        public abstract void Update(double gameTime);
-        public abstract void Draw(SpriteBatch spritebatch);
+		public abstract void Update(double gameTime);
+		public abstract void Draw(SpriteBatch spritebatch);
 
 		public virtual void Initialize() { }
 		public virtual void Uninitalize() { }

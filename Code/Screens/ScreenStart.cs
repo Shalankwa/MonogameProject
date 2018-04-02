@@ -18,8 +18,6 @@ namespace Game1.Code.Screens
 		private MapManager manageMap;
 		private CameraManager cameraManager;
 
-		ContentManager _content;
-
 		public ScreenStart(ScreenManager screenManager, ContentManager content) : base(screenManager)
 		{
 			cameraManager = new CameraManager(screenManager._screenSize);
@@ -35,14 +33,14 @@ namespace Game1.Code.Screens
 		{
 			manageMap.Uninitialize();
 			InputManager.FireNewInput -= StartScreen_InputManage;
-			//_backgroundImage.Dispose();
+
 		}
 
 		private void StartScreen_InputManage(object sender, NewInputEventArgs e)
 		{
-			if(e.Input  == Input.Enter)
+			if(e.Input == Input.Enter)
 			{
-				ScreenManager.loadNewScreen(new ScreenDungeon(ScreenManager, _content));
+				ScreenManager.loadNewScreen(new ScreenHome(ScreenManager, ManagerContent.content));
 			}
 		}
 
@@ -54,7 +52,6 @@ namespace Game1.Code.Screens
 
 		public override void Update(double gameTime)
 		{
-
 			manageMap.Update(gameTime);
 		}
 
@@ -62,7 +59,6 @@ namespace Game1.Code.Screens
 		{
 			FunctionManager.DrawAtLayer(_backgroundImage, new Rectangle(50, 80, 220, 50), null, 10, spriteBatch);
 			manageMap.Draw(spriteBatch);
-
 		}
 
 	}

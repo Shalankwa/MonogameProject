@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game1.Code.Components;
-using Game1.Code.Components.AIControllers;
-using Game1.Code.Components.Animations;
-using Game1.Code.Components.Interactions;
-using Game1.Code.Components.Pickups;
-using Game1.Code.Componets.Items;
-using Game1.Code.EventHandlers;
+﻿using Game1.Code.EventHandlers;
 using Game1.Code.Factories;
 using Game1.Code.Loader;
 using Game1.Code.Managers;
@@ -18,22 +6,27 @@ using Game1.Code.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Game1.Code.Screens
 {
-	class ScreenDungeon : Screen
+	class ScreenHome : Screen
 	{
-
 		private MapManager manageMap;
 		private CameraManager cameraManager;
 		private Entities _entities;
 
-		public ScreenDungeon(ScreenManager screenManager, ContentManager content) : base(screenManager)
+		public ScreenHome(ScreenManager screenManager, ContentManager content) : base(screenManager)
 		{
 			cameraManager = new CameraManager(screenManager._screenSize);
-			manageMap = new MapManager("Dungeon", cameraManager);
+			manageMap = new MapManager("Home", cameraManager);
 			_entities = new Entities();
-			Scene = Scene.Dungeon;
+			Scene = Scene.Home;
 		}
 
 		public override void Initialize()
@@ -50,28 +43,29 @@ namespace Game1.Code.Screens
 		void addNewEntities(object sender, NewMapObjectEvent e)
 		{
 			BaseObject newObj = ObjectFactory.newObject(
-				e.newObject, e.position, e.properties, 
-				ScreenManager, ScreenManager._content, manageMap, 
+				e.newObject, e.position, e.properties,
+				ScreenManager, ScreenManager._content, manageMap,
 				_entities, cameraManager);
-			
-			if(newObj != null)
+
+			if (newObj != null)
 				_entities.AddEntitie(newObj);
+
 		}
 
 		public override void LoadContent(ContentManager content)
 		{
 
-			
 			manageMap.LoadContent(content);
-
 
 			//test
 			PlayerManager.reloadPlayer(_entities, cameraManager, manageMap);
 
-			if(ScreenManager.lastScene == Scene.Town)
+			if (ScreenManager.lastScene == Scene.Town)
 			{
-				PlayerManager.moveTo(new Vector2(160, 180));
-
+				PlayerManager.moveTo(new Vector2(168, 190));
+			} else
+			{
+				PlayerManager.moveTo(new Vector2(160, 150));
 			}
 
 			_entities.AddEntitie(PlayerManager.player);
@@ -94,6 +88,5 @@ namespace Game1.Code.Screens
 			_entities.Draw(spriteBatch);
 
 		}
-
 	}
 }

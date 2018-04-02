@@ -19,26 +19,25 @@ namespace Game1.Code.MapObjects
 		private Scene _scene;
 		private Vector2 _position;
 		public Rectangle triggerBox { get; private set; }
-		private BaseObject _player;
 
-		public SceneTrigger(string scene, Vector2 pos, int width, int height, BaseObject player, ScreenManager screenManager, ContentManager content)
+		public SceneTrigger(Scene scene, Vector2 pos, int width, int height, ScreenManager screenManager, ContentManager content)
 		{
+			_scene = scene;
 			_content = content;
-			_scene = Scene.Town;
 			_position = pos;
-			_player = player;
 			triggerBox = new Rectangle((int)_position.X, (int)_position.Y, width, height);
 			_screenManager = screenManager;
+
 		}
 
 		public override void Update(double gameTime)
 		{
-			var sprite = _player.GetComponent<Sprite>(ComponentType.Sprite);
+			var sprite = PlayerManager.player.GetComponent<Sprite>(ComponentType.Sprite);
 			if (sprite == null) return;
 
 			if (sprite.Rectangle.Intersects(triggerBox))
 			{
-				_screenManager.loadNewScreen(new ScreenStart(_screenManager, _content));
+				_screenManager.loadNewScreen(_screenManager.makeScene(_scene));
 			}
 		}
 

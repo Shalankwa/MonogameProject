@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Code.Managers
 {
-	class FunctionManager
+	static class FunctionManager
 	{
 		private static Random _rnd = new Random();
 		private static int ID = 0;
@@ -87,6 +87,18 @@ namespace Game1.Code.Managers
 			spriteBatch.Draw(texture, destination, sourceRectangle, colour.Value, rotation, new Vector2(centerX, centerY), SpriteEffects.None, flayer);
 		}
 
+		public static void DrawText(SpriteFont font, String text, Vector2 position, Color colour, SpriteBatch spriteBatch, float size = 1f)
+		{
+
+			if (colour == null) colour = Color.White;
+
+			// Determine float value for layer based on Y location + the layer they are on
+
+
+			// Draw at position and layer
+			spriteBatch.DrawString(font, text, position, colour, 0, new Vector2(0,0), size, SpriteEffects.None, 1);
+		}
+
 		private static float getLayerFloat(double posY, Nullable<int> Layer)
 		{
 			if (Layer == null) Layer = 0;
@@ -94,6 +106,11 @@ namespace Game1.Code.Managers
 			if (flayer < 0) flayer = 0;
 			if (flayer > 1) flayer = 1;
 			return flayer;
+		}
+
+		public static T ParseEnum<T>(string value)
+		{
+			return (T)Enum.Parse(typeof(T), value, true);
 		}
 	}
 }

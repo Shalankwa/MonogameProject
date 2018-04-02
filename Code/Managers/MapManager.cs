@@ -36,6 +36,11 @@ namespace Game1.Code.Managers
 			CameraManager.FireCameraTransition += loadNewArea;
 		}
 
+		public void Initialize()
+		{
+			CameraManager.FireCameraTransition += loadNewArea;
+		}
+
 		public void Uninitialize()
 		{
 			CameraManager.FireCameraTransition -= loadNewArea;
@@ -48,15 +53,16 @@ namespace Game1.Code.Managers
 
 			int MapOffsetX = (int)_cameraManager._moveToPosition.X / _tileWidth; 
 			int MapOffsetY = (int)_cameraManager._moveToPosition.Y	/ _tileHeight;
+			bool loadObjects = !PlayerManager.Explored(MapAreaX, MapAreaY);
 
 			if (e.Direction == Direction.Left) MapAreaX -= 1;
 			if (e.Direction == Direction.Right) MapAreaX += 1;
 			if (e.Direction == Direction.Up) MapAreaY -= 1;
 			if (e.Direction == Direction.Down) MapAreaY += 1;
 
-			if (!TileMapLoader.LoadTileMap<Tile>(_mapArea, out _tiles, out _tileCollisions))
+			if (!TileMapLoader.LoadTileMap<Tile>(_mapArea, out _tiles, out _tileCollisions, loadObjects))
 			{
-				TileMapLoader.LoadTileMap<Tile>("Maps/Map2_X3_Y4", out _tiles, out _tileCollisions);
+				TileMapLoader.LoadTileMap<Tile>("Maps/Map2_X3_Y4", out _tiles, out _tileCollisions, loadObjects);
 			}
 
 			foreach (var tile in _tiles)
@@ -72,12 +78,14 @@ namespace Game1.Code.Managers
 				tileCollision.Ybound += MapOffsetY;
 				tileCollision.cameraManager = _cameraManager;
 			}
+
+			PlayerManager.UpdateMap(MapAreaX, MapAreaY);
 		}
 
 		public void LoadContent(ContentManager content)
 		{
 			_content = content;
-			TileMapLoader.LoadTileMap<Tile>(_mapArea, out _tiles, out _tileCollisions);
+			TileMapLoader.LoadTileMap<Tile>(_mapArea, out _tiles, out _tileCollisions, true);
 
 			foreach(var tile in _tiles)
 			{

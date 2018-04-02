@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Game1.Code.Map;
 using Game1.Code.EventHandlers;
 using Microsoft.Xna.Framework;
+using Game1.Code.Managers;
 
 namespace Game1.Code.Loader
 {
@@ -30,7 +31,7 @@ namespace Game1.Code.Loader
 			remove { _newMapObject -= value; }
 		}
 
-		public static bool LoadTileMap<T>(string mapName, out List<Tile> tiles, out List<TileCollision> collisions)
+		public static bool LoadTileMap<T>(string mapName, out List<Tile> tiles, out List<TileCollision> collisions, bool loadObjects)
 		{
 			collisions = new List<TileCollision>();
 			tiles = new List<Tile>();
@@ -101,13 +102,15 @@ namespace Game1.Code.Loader
 			}
 
 
-			//Read Objects to be placed
+			//Read Objects to be placed if in a new area
+			if (!loadObjects) return true;
+
 			XElement objects;
 			try
 			{
 				objects  = xDox.Root.Elements("objectgroup").Last();
 			}
-			catch (Exception e)
+			catch
 			{
 				return true;
 			}
@@ -135,10 +138,9 @@ namespace Game1.Code.Loader
 					properties.Add(property.Attribute("name").Value, property.Attribute("value").Value);
 				}
 
-				if (Objects.TriggerScene.ToString().Equals(elm.Attribute("name").Value))
-				{
-					_newMapObject(null, new NewMapObjectEvent(Objects.TriggerScene, new Vector2(x, y), properties));
-				}
+				
+				_newMapObject(null, new NewMapObjectEvent(FunctionManager.ParseEnum<Objects>(name), new Vector2(x, y), properties));
+				
 
 			}
 			return true;

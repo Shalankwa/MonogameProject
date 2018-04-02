@@ -32,7 +32,6 @@ namespace Game1.Code.Components
 			_Hbar = content.Load<Texture2D>("GUI/Hbar");
 			_Slot = content.Load<Texture2D>("GUI/Slot");
 
-
 		}
 
 		public override void Draw(SpriteBatch spritebatch)
@@ -68,15 +67,15 @@ namespace Game1.Code.Components
 			Item item;
 			if (Equiped.Equiped(ItemSlot.slot1, out item))
 			{
-				FunctionManager.DrawAtLayer(item.GuiTexture, new Rectangle(265+2, Slot1YPos+2, 16, 16), null, 9, Color.White * colourA, spriteBatch);
+				FunctionManager.DrawAtLayer(item.GuiTexture, new Rectangle(265+2, Slot1YPos+2, 16, 16), null, 7, Color.White * colourA, spriteBatch);
 			}
 			if (Equiped.Equiped(ItemSlot.slot2, out item))
 			{
-				FunctionManager.DrawAtLayer(item.GuiTexture, new Rectangle(280 + 2, Slot2YPos + 2, 16, 16), null, 9, Color.White * colourA, spriteBatch);
+				FunctionManager.DrawAtLayer(item.GuiTexture, new Rectangle(280 + 2, Slot2YPos + 2, 16, 16), null, 7, Color.White * colourA, spriteBatch);
 			}
 
-			FunctionManager.DrawAtLayer(_Slot, new Rectangle(265, Slot1YPos, 20, 20), null, 8, Color.White*colourA, spriteBatch);
-			FunctionManager.DrawAtLayer(_Slot, new Rectangle(280, Slot2YPos, 20, 20), null, 8, Color.White * colourA, spriteBatch);
+			FunctionManager.DrawAtLayer(_Slot, new Rectangle(265, Slot1YPos, 20, 20), null, 6, Color.White * colourA, spriteBatch);
+			FunctionManager.DrawAtLayer(_Slot, new Rectangle(280, Slot2YPos, 20, 20), null, 6, Color.White * colourA, spriteBatch);
 		}
 
 		public void DrawHP(Vector2 pos, SpriteBatch spriteBatch, Stats stats)
@@ -88,8 +87,8 @@ namespace Game1.Code.Components
 
 			float colourA = (pos.Y > 120 && pos.X > 180) ? 0.5f : 1;
 
-			FunctionManager.DrawAtLayer(_Vbar, new Rectangle(304, HPstartYPos + Voffset, 16, HPheight), null, 8, Color.LimeGreen*colourA, spriteBatch);
-			FunctionManager.DrawAtLayer(_HealthContainer, new Rectangle(304, HPstartYPos, 16, 80), null, 9, Color.White*colourA, spriteBatch);
+			FunctionManager.DrawAtLayer(_Vbar, new Rectangle(304, HPstartYPos + Voffset, 16, HPheight), null, 6, Color.LimeGreen*colourA, spriteBatch);
+			FunctionManager.DrawAtLayer(_HealthContainer, new Rectangle(304, HPstartYPos, 16, 80), null, 7, Color.White*colourA, spriteBatch);
 		}
 
 		public override void Update(double gameTime)

@@ -1,4 +1,5 @@
 ﻿using Game1.Code.Components;
+using Game1.Code.Components.Interactions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -30,7 +31,6 @@ namespace Game1.Code.Map
 
 		public void Update(double gameTime)
 		{
-
 			for (int i = 0; i < _entities.Count; i++)
 			{
 				_entities[i].Update(gameTime);
@@ -59,6 +59,28 @@ namespace Game1.Code.Map
 		{
 			if (_entities == null) return;
 
+		}
+
+		public bool CheckInteraction(Rectangle rectangle, out BaseObject hitObj, int ID)
+		{
+			foreach (var baseObj in _entities)
+			{
+				if (ID == baseObj.Id) continue;
+
+				var interaction = baseObj.GetComponent<Interaction>(ComponentType.Interaction);
+				if (interaction == null) continue;
+
+				var sprite = baseObj.GetComponent<Sprite>(ComponentType.Sprite);
+				if (sprite == null) continue;
+
+				if (sprite.Rectangle.Intersects(rectangle))
+				{
+					hitObj = baseObj;
+					return true;
+				}
+			}
+			hitObj = null;
+			return false;
 		}
 
 		public bool CheckCollision(Rectangle rectangle, out BaseObject hitObj, int ID)

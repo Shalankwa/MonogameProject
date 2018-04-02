@@ -11,6 +11,7 @@ namespace Game1.Code.Screens
 {
 	public abstract class Screen
 	{
+		public Scene Scene;
 		protected ScreenManager ScreenManager;
 
 		public Screen(ScreenManager screenManager)

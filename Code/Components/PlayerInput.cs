@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game1.Code.Components.Interactions;
 using Game1.Code.EventHandlers;
+using Game1.Code.GUI_Elements;
 using Game1.Code.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,6 +34,8 @@ namespace Game1.Code.Components
 		void PlayerAction(object sender, NewInputEventArgs e)
         {
 
+			if (GameModeManager.gameMode != GameMode.Play) return;
+
             //Get sprite component from BaseObject class
             var sprite = GetComponent<Sprite>(ComponentType.Sprite);
             if (sprite == null) return;
@@ -41,6 +45,9 @@ namespace Game1.Code.Components
 
 			var camera = GetComponent<Camera>(ComponentType.Camera);
 			if (camera == null || camera.GetInTransition()) return;
+
+			var interact = GetComponent<Interaction>(ComponentType.Interaction);
+			if (interact == null) return;
 
 			var collision = GetComponent<Collision>(ComponentType.Collision);
 
@@ -73,6 +80,12 @@ namespace Game1.Code.Components
 				case Input.RightClick:
 					inventory.UseItemInSlot(ItemSlot.slot2);
 					break;
+				case Input.Interact:
+					interact.action();
+					break;
+				case Input.Select:
+					WindowManager.newWindow(new WindowMenu());
+					break;
 			}
 
 			if(collision != null && !collision.CheckCollision(
@@ -92,14 +105,14 @@ namespace Game1.Code.Components
 			}
 		}
 
-        public override void Draw(SpriteBatch spritebatch)
+		public override void Draw(SpriteBatch spritebatch)
         {
             
         }
 
         public override void Update(double gameTime)
         {
-            
+
         }
     }
 }

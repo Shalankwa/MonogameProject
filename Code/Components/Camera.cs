@@ -23,9 +23,19 @@ namespace Game1.Code.Components
 			_cameraManager = camera;
 		}
 
+		public void Reload(CameraManager camera)
+		{
+			_cameraManager = camera;
+		}
+
 		public bool GetPosition(Vector2 position, out Vector2 newPosition)
 		{
 			newPosition = _cameraManager.WorldToScreenPosition(position);
+			return _cameraManager.InScreenCheck(position);
+		}
+
+		public bool InScreen(Vector2 position)
+		{
 			return _cameraManager.InScreenCheck(position);
 		}
 

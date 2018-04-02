@@ -17,25 +17,31 @@ namespace Game1.Code.Componets.Items
 	{
 
 		private Entities _entities;
-		private double counter = 0;
 		private double duration = 0;
 
 		public Sword(BaseObject owner, Entities entities)
 		{
 			ItemId = 1;
-			_owner = owner;
+			base.owner = owner;
+			_entities = entities;
+		}
+
+		public override void Reload(CameraManager camera, Entities entities)
+		{
+			GetComponent<Camera>(ComponentType.Camera).Reload(camera);
 			_entities = entities;
 		}
 
 		public override void LoadContent(ContentManager content, CameraManager cameraManager)
 		{
 
-			var spriteO = _owner.GetComponent<Sprite>(ComponentType.Sprite);
+			RemoveAllComponents();
+
+			var spriteO = owner.GetComponent<Sprite>(ComponentType.Sprite);
 			var ownserPos = spriteO.Position;
 
 			var sprite = content.Load<Texture2D>("Items/Sword");
 			GuiTexture = sprite;
-
 
 			AddComponent(new Sprite(sprite, 16, 16, ownserPos));
 			AddComponent(new Camera(cameraManager));
@@ -48,7 +54,7 @@ namespace Game1.Code.Componets.Items
 			duration = 200;
 
 			var sprite = GetComponent<Sprite>(ComponentType.Sprite);
-			var player = _owner.GetComponent<Animation>(ComponentType.Animation);
+			var player = owner.GetComponent<Animation>(ComponentType.Animation);
 
 			switch (player.currDirection)
 			{
@@ -71,7 +77,7 @@ namespace Game1.Code.Componets.Items
 		{
 
 			var sprite = GetComponent<Sprite>(ComponentType.Sprite);
-			var spriteO = _owner.GetComponent<Sprite>(ComponentType.Sprite);
+			var spriteO = owner.GetComponent<Sprite>(ComponentType.Sprite);
 			var ownserPos = spriteO.Position;
 			sprite.Teleport(ownserPos + new Vector2(0, -12));
 
@@ -95,7 +101,7 @@ namespace Game1.Code.Componets.Items
 		{
 			BaseObject hitObj;
 
-			if (_entities.CheckCollision(sprite.Rectangle, out hitObj, _owner.Id))
+			if (_entities.CheckCollision(sprite.Rectangle, out hitObj, owner.Id))
 			{
 				hitObj.GetComponent<Damage>(ComponentType.Damage)?.TakeDamage(5);
 			}

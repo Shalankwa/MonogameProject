@@ -19,6 +19,7 @@ namespace Game1.Code.Managers
         private static event EventHandler<NewInputEventArgs> _FireNewInput;
         private double counter;
         private static double cooldown;
+		private static bool Paused;
 
         //Static access to subscribe to event
         public static event EventHandler<NewInputEventArgs> FireNewInput
@@ -30,7 +31,12 @@ namespace Game1.Code.Managers
         public static bool ThrottleInput { get; set; }
         public static bool LockMovement { get; set; }
 
-        public InputManager()
+		public static void PauseInput() { Paused = true; }
+		public static void UnPauseInput() { Paused = false; }
+		public static void Cooldown(int n) { cooldown = n; }
+
+
+		public InputManager()
         {
             ThrottleInput = false;
             LockMovement = false;
@@ -39,10 +45,13 @@ namespace Game1.Code.Managers
 
         public void Update(double gameTime)
         {
+
+			if (Paused) return;
+
             if(cooldown > 0)
             {
                 counter += gameTime;
-                if (counter > gameTime)
+                if (counter > cooldown)
                 {
                     counter = 0;
                     cooldown = 0;
@@ -68,22 +77,38 @@ namespace Game1.Code.Managers
                 }
             }
 
+			CheckKeyState(Keys.Enter, Input.Enter);
+			keyPressed(Keys.B, Input.Select);
+			
+			CheckKeyState(Keys.Left, Input.Left);
+			CheckKeyState(Keys.Right, Input.Right);
+			CheckKeyState(Keys.Down, Input.Down);
+			CheckKeyState(Keys.Up, Input.Up);
+			CheckKeyState(Keys.A, Input.Left);
+			CheckKeyState(Keys.D, Input.Right);
+			CheckKeyState(Keys.S, Input.Down);
+			CheckKeyState(Keys.W, Input.Up);
+
+			keyPressed(Keys.E, Input.Interact);
 			CheckMouseState(mouseState.LeftButton, Input.LeftClick);
 			CheckMouseState(mouseState.RightButton, Input.RightClick);
-
-			CheckKeyState(Keys.Left, Input.Left);
-            CheckKeyState(Keys.Right, Input.Right);
-            CheckKeyState(Keys.Down, Input.Down);
-            CheckKeyState(Keys.Up, Input.Up);
-            CheckKeyState(Keys.A, Input.Left);
-            CheckKeyState(Keys.D, Input.Right);
-            CheckKeyState(Keys.S, Input.Down);
-            CheckKeyState(Keys.W, Input.Up);
-			CheckKeyState(Keys.Enter, Input.Enter);
+			
 
 			oldKeyState = keyState;
 			oldMouseState = mouseState;
 
+		}
+
+		private void keyPressed(Keys key, Input fireInput)
+		{
+			if(keyState.IsKeyDown(key) && !oldKeyState.IsKeyDown(key))
+			{
+				if (_FireNewInput != null)
+				{
+					_FireNewInput(this, new NewInputEventArgs(fireInput));
+					lastKey = key;
+				}
+			}
 		}
 
         private void CheckKeyState(Keys key, Input fireInput)
@@ -103,13 +128,22 @@ namespace Game1.Code.Managers
 
 		private void CheckMouseState(ButtonState button, Input fireInput)
 		{
+			if(fireInput == Input.RightClick)
+			{
+				lastMousePress = oldMouseState.RightButton;
+			} else
+			{
+				lastMousePress = oldMouseState.LeftButton;
+			}
+
 			if (button == ButtonState.Pressed)
 			{
-				if (!ThrottleInput)
+				if (!ThrottleInput || (ThrottleInput && lastMousePress == ButtonState.Released))
 				{
 					if (_FireNewInput != null)
 					{
 						_FireNewInput(this, new NewInputEventArgs(fireInput));
+						lastMousePress = button;
 					}
 				}
 			}

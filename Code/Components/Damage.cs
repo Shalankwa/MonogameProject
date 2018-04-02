@@ -25,6 +25,11 @@ namespace Game1.Code.Components
 			_iFrames = false;
 		}
 
+		public void Reload(Entities entities)
+		{
+			_entities = entities;
+		}
+
 		public override ComponentType ComponentType
 		{
 			get { return ComponentType.Damage; }
