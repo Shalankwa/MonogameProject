@@ -37,15 +37,8 @@ namespace Game1.Code.Components.ActivateEvents
 			if (ani == null) return;
 
 			ani.PlayAnimation();
-
-			if(ani.animationIndex == 0)
-			{
-				col.imPassable = false;
-			}
-			else
-			{
-				col.imPassable = true;
-			}
+			
+			col.imPassable = (ani.animationIndex >= 0);
 
 		}
 	}
